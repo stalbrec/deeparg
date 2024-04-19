@@ -79,15 +79,17 @@ def main(data):
     print "training set: ", x_train.shape, y_train.shape
     # print "testing set: ", x_test.shape, y_test.shape
 
-    clf = NeuralNet(
-        layers=model(x_train.shape[1], len(set(Y))),
-        update=nesterov_momentum,
-        update_learning_rate=0.01,
-        update_momentum=0.9,
-        regression=False,
-        max_epochs=100,
-        verbose=2,
-    )
+    nn_meta = {
+        "layers":model(x_train.shape[1], len(set(Y))),
+        "update":nesterov_momentum,
+        "update_learning_rate":0.01,
+        "update_momentum":0.9,
+        "regression":False,
+        "max_epochs":100,
+        "verbose":2,
+    }
+
+    clf = NeuralNet(**nn_meta)
 
     clf.fit(x_train, y_train)
 
@@ -98,5 +100,7 @@ def main(data):
             "Y_rev": Y_rev,
             "input_nodes": x_train.shape[1],
             "output_nodes": len(set(Y)),
+            "model":nn_meta,
+
         }
     }
