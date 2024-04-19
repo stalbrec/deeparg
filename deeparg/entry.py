@@ -7,7 +7,7 @@ import os
 from tqdm import tqdm
 from deeparg.short_reads_pipeline.short_reads_pipeline import main as main_srp
 import zipfile
-
+import subprocess
 import deeparg.predict.bin.deepARG as clf
 
 logging.basicConfig()
@@ -42,7 +42,8 @@ def predict(args):
                         '-a', args.output_file+'.align'
                         ])
     logger.info('Running: {}'.format(cmd))
-    os.system(cmd)
+    diamond_align_proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    diamond_align_proc.communicate()
 
     logger.info("Input:{} output:{} model: deepARG{}, Input type: {}".format(args.input_file, args.output_file, mdl, args.aligner)) 
 
@@ -52,7 +53,8 @@ def predict(args):
         '-o', args.output_file+'.align.daa.tsv'
     ])
     logger.info("parsing output file {}".format(cmd))
-    os.system(cmd)
+    diamond_view_proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    diamond_view_proc.communicate()
 
     clf.process(args.output_file+'.align.daa.tsv', args.output_file +
                 '.mapping', args.arg_alignment_identity, mdl, args.arg_alignment_evalue, args.min_prob, args.arg_alignment_overlap, pipeline, args.model_version, args)
