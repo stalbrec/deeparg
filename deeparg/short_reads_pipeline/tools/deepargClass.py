@@ -6,7 +6,9 @@ def run(R, data):
     # print sys.path
     try:
         cmd = " ".join(
-            ['deeparg predict',
+            ['deeparg',
+            ('--custom-model' if data['deep_arg_parameters']['custom_model'] else ''),
+             'predict',
              '--type nucl',
              '--model SS',
              '-d', data['deep_arg_parameters']['data_path'],

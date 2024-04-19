@@ -13,7 +13,8 @@ def main(args):
         identity=args.deeparg_identity,
         probability=args.deeparg_probability,
         evalue=args.deeparg_evalue,
-        data_path=args.deeparg_data_path
+        data_path=args.deeparg_data_path,
+        custom_model=args.custom_model,
     )
 
     parameters = dict(

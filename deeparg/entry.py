@@ -95,6 +95,9 @@ def main():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers()
 
+    parser.add_argument('--custom-model', action='store_true',
+                       help='load custom model architecture from metadata.')
+
     # use deeparg section
     reads = subparsers.add_parser("predict", help="Predict ARG from reads or genes")
     reads.add_argument('--model', required=True,
