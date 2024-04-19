@@ -109,15 +109,23 @@ def process(fin, fon, iden, version, evalue, prob, minCoverage, pipeline, versio
     logger.info("Loading deep learning model ...")
     deepL = cPickle.load(
         open(args.data_path+"/model/"+version_m+"/metadata"+version+".pkl"))
-    clf = NeuralNet(
-        layers=model(deepL['input_nodes'], deepL['output_nodes']),
-        update=nesterov_momentum,
-        update_learning_rate=0.01,
-        update_momentum=0.9,
-        regression=False,
-        max_epochs=100,
-        verbose=2,
-    )
+    
+    nn_meta = {
+        "layers":model(deepL['input_nodes'], deepL['output_nodes']),
+        "update":nesterov_momentum,
+        "update_learning_rate":0.01,
+        "update_momentum":0.9,
+        "regression":False,
+        "max_epochs":100,
+        "verbose":2,
+    }
+    
+    if args.custom_model:
+        if 'model' not in deepL:
+            raise RuntimeError("Could not load custom model from metadata pickle!")
+        else:
+            nn_meta = deepL['model'] 
+    clf = NeuralNet(**nn_meta)
 
     clf.load_params_from(args.data_path+"/model/"+version_m+"/model"+version+".pkl")
 
