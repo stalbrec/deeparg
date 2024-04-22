@@ -14,6 +14,7 @@ def main(args):
         probability=args.deeparg_probability,
         evalue=args.deeparg_evalue,
         data_path=args.deeparg_data_path,
+        model_version=args.deeparg_model_version,
         custom_model=args.custom_model,
     )
 

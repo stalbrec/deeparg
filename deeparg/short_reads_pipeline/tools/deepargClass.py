@@ -10,6 +10,7 @@ def run(R, data):
             ('--custom-model' if data['deep_arg_parameters']['custom_model'] else ''),
              'predict',
              '--type nucl',
+             '--model-version' , data['deep_arg_parameters']['model_version'],
              '--model SS',
              '-d', data['deep_arg_parameters']['data_path'],
              '-i', R,

@@ -141,6 +141,8 @@ def main():
                         help="save results to this file prefix",)
     short_reads_pipeline_parser.add_argument('-d', '--deeparg_data_path', required=False,
                        help="Path where data was downloaded [see deeparg download-data --help for details]")
+    short_reads_pipeline_parser.add_argument('--deeparg_model_version', default='v2',
+                       help='Model deepARG version  [Default: v2]')
     short_reads_pipeline_parser.add_argument("--deeparg_identity", type=float, default=80,
                         help="minimum identity for ARG alignments [default 80]",)
     short_reads_pipeline_parser.add_argument("--deeparg_probability", type=float, default=0.8,
