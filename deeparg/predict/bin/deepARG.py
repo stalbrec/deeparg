@@ -124,7 +124,11 @@ def process(fin, fon, iden, version, evalue, prob, minCoverage, pipeline, versio
         if 'model' not in deepL:
             raise RuntimeError("Could not load custom model from metadata pickle!")
         else:
-            nn_meta = deepL['model'] 
+            nn_meta = deepL['model']
+            logger.info("loaded custom model settings: "+ str(nn_meta) )
+    else:
+        logger.info("loaded default model settings.")
+
     clf = NeuralNet(**nn_meta)
 
     clf.load_params_from(args.data_path+"/model/"+version_m+"/model"+version+".pkl")
